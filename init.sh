@@ -11,7 +11,7 @@ fi
 # 更新yum
 # yum update
 
-# 移除docker旧版本(如果有的话)
+# 移除docker旧版本(如果有已安装并正在使用的docker服务，请根据实际需要修改本文件)
 yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine
 
 # 安装系统依赖

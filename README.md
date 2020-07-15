@@ -1,6 +1,8 @@
 ###  dockerfiles 目录说明  
 
-- 安装建议：建议安装在 /root 目录下， 即在 /root 目录下执行一键安装命令，并生成 /root/dockerfiles 目录
+- 如果有已安装并正在使用的docker服务，请在执行前自行修改inin.sh文件
+
+- 安装建议：建议安装在 /root 目录下， 即在 /root 目录下执行一键安装命令，并生成 /root/dockerfiles 目录。如安装到其他目录，请修改init.sh中的/root目录
 
 - 本目录中包含  
     - docker-compose.yml	docker 容器编排文件  
