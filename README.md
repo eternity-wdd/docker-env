@@ -15,7 +15,7 @@
 
 - 2、如果你是通过一键安装命令安装， 则无需再次运行init.sh文件, 安装完成后，通过8081端口访问出现phpinfo页面，如正常访问则部署成功。命令如下
 
-    - wget http://pic.klagri.com.cn/env/dockerfiles-1.x.0.tar.gz && tar zxvf dockerfiles-1.x.0.tar.gz && mv dockerfiles-1.x.0 dockerfiles && cd dockerfiles && /bin/bash init.sh
+    - cd /root && git clone git@github.com:eternity-wdd/docker-env.git && cd docker-env && /bin/bash init.sh
 
     - 建议在 /root 目录下执行此命令
 
