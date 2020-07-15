@@ -44,7 +44,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 
 # 切换目录，如不是通过一键安装命令安装，请确保dockerfiles文件夹已经下载到服务器
-cd /root/docker_env/
+cd /root/docker-env
 
 # vim docker-compose.yml     
 # 部署前，请修改 docker-compose.yml 中对应目录为你当前服务器目录
