@@ -1,0 +1,29 @@
+nginx:
+    build: ./nginx                                                              # nginx 的 Dockerfile 所在目录
+    volumes:                                                                    # 挂载目录
+        - /root/dockerfiles/nginx/html:/usr/share/nginx/html                    # nginx 默认目录，存放404、500 等静态页面 
+        - /root/dockerfiles/nginx/conf/nginx.conf:/etc/nginx/nginx.conf         # 挂载 nginx 配置文件， docker 官方不推荐文件指向文件的方式，但仍可以使用
+        - /root/dockerfiles/nginx/conf/conf.d:/etc/nginx/conf.d                 # nginx 子配置目录
+        - /root/dockerfiles/nginx/logs:/var/log/nginx                           # 日志文件存放目录
+        - /www:/www                                                             # 项目所在目录，（自定义，建议放在 /www 目录下）
+        - /root/dockerfiles/nginx/www:/usr/share/nginx/www                      # nginx 自定义目录，用于存放本项目的测试，其中包括 index.php 用于输出 phpinfo 页面
+        - /home:/home                                                           # 挂载家目录，用来存放一些公用的文件等，可以不挂载，也可改为其他的路径
+    ports:                                      
+        - "8081:80"                                                             # 端口映射，宿主机8081 映射到容器80 端口，生产环境建议80:80，域名会直接从宿主机转发到容器中
+    links: 
+        - php                                                                   # 连接的容器（服务）
+        - redis
+        - memcached
+php:
+    build: ./php
+    volumes:
+        - /home:/home
+        - /www:/www
+        - /root/dockerfiles/nginx/www:/usr/share/nginx/www 
+    links:
+        - redis
+        - memcached
+redis:
+    image: redis:alpine                                                         # 使用的镜像，如本地不存在，直接从docker官网拉取对应镜像
+memcached:
+    image: memcached:1.5.16-alpine

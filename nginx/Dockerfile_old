@@ -1,0 +1,59 @@
+# 此镜像为v1.1.0 版本使用，nginx 是基于 centos 构造，可正常使用。
+
+# base image 
+FROM centos
+
+# MAINTAINER
+MAINTAINER 271648298@qq.com
+
+RUN yum install -y gcc gcc-c++ glibc make openssl-devel wget
+
+# 切换目录
+WORKDIR /usr/local/src
+# Install Nginx
+# ADD http://nginx.org/download/nginx-1.17.0.tar.gz .
+ADD http://pic.klagri.com.cn/env/nginx-1.17.0.tar.gz .
+
+RUN tar zxvf nginx-1.17.0.tar.gz
+
+WORKDIR /usr/local/src/nginx-1.17.0
+# put local  nginx-1.17.0.tar.gz into container /usr/local/src and unpack nginx
+# ADD nginx-1.17.0.tar.gz /usr/local/src
+
+# update yum
+RUN yum -y update 
+
+# running required command
+#RUN yum install -y gcc gcc-c++ glibc make openssl-devel wget
+RUN yum install -y libxslt-devel -y gd-devel GeoIP GeoIP-devel pcre pcre-devel
+RUN  useradd -M -s /sbin/nologin nginx
+
+# mount a dir to container
+VOLUME ["/data"]
+
+# executecommand to compile nginx
+RUN ./configure --user=nginx --group=nginx --prefix=/usr/local/nginx --with-file-aio --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_xslt_module --with-http_image_filter_module --with-http_geoip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_degradation_module --with-http_stub_status_module && make && make install
+
+# 切换到Nginx的配置目录
+WORKDIR /usr/local/nginx/conf
+
+# 删除自带的nginx.conf文件
+# RUN rm nginx.conf
+# 将准备好的nginx.conf文件放进来
+# ADD conf/nginx.conf /usr/local/nginx/conf
+
+# 建立子配置文件夹，个人爱好，可以不见，或者叫vhost都可以
+RUN mkdir vhost
+
+# setip PATH	
+ENV PATH /usr/local/nginx/sbin:$PATH
+
+# expose
+EXPOSE 80
+
+# the command of entrypoint
+ENTRYPOINT ["nginx"]
+
+CMD ["-g", "daemon off;"]
+
+
