@@ -13,11 +13,11 @@
 
 - 1、其中init.sh 为环境初始化脚本，运行后会安装 docker（如有旧版本docker会先删除），下载docker-compose，并构建镜像，启动容器，执行一次后无需再次使用。
 
-- 2、如果你是通过一键安装命令安装， 则无需再次运行init.sh文件, 安装完成后，通过8081端口访问出现phpinfo页面，如正常访问则部署成功。命令如下
+- 2、如果你是通过一键安装命令安装， 则无需再次运行init.sh文件, 安装完成后，通过8081端口访问出现phpinfo页面，如正常访问则部署成功。一键安装命令如下：
 
-    - cd /root && git clone git@github.com:eternity-wdd/docker-env.git && cd docker-env && /bin/bash init.sh
+    - cd /root && wget https://github.com/eternity-wdd/docker-env/archive/master.zip && unzip master.zip && mv docker-env-master docker-env && cd docker-env && /bin/bash init.sh
 
-    - 建议在 /root 目录下执行此命令
+    - 建议在 /root 目录下执行此命令，另外需要在执行前按照unzip( yum install -y unzip)
 
 - 3、docker-compose.yml 文件为docker容器编排文件，通过 docker-compose 工具一键启动容器集群，以及其他配置和管理，相关命令如下：
     
